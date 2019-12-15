@@ -54,12 +54,19 @@ export class InteractComponent implements OnInit {
 
   @ViewChild(ComponentHostDirectiveI, { static: true }) componentHost: ComponentHostDirectiveI;
 
-  constructor(private interactService: InteractService, private componentFactoryResolver: ComponentFactoryResolver, private http: HttpClient, private router: ActivatedRoute) { }
+  constructor(private interactService: InteractService, private componentFactoryResolver: ComponentFactoryResolver, 
+    private http: HttpClient, private router: ActivatedRoute) { }
 
   ngOnInit(): void {
-    const viewContainerRef = this.componentHost.viewContainerRef;
+    this.router.queryParams.subscribe((params) => {
+      let segmento = params['sgs'];
+      this.loadPage(segmento);
+    })
+  };
+  private loadPage(segmento) {
+        const viewContainerRef = this.componentHost.viewContainerRef;
     viewContainerRef.clear();
-    this.interactService.getInteractLayout()
+    this.interactService.getInteractLayout(segmento)
       .subscribe((res: any) => {
         let start = 0;
         res.responses[1].offerLists.forEach((offerList) => {
@@ -144,4 +151,8 @@ export class InteractComponent implements OnInit {
         });
       });
   };
+
+  private newMethod(segmento: any) {
+    return this.interactService.getInteractLayout(segmento);
+  }
 }

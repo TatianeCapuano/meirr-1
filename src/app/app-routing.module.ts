@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProfileEditorComponent } from './profile-editor/profile-editor.component';
-import { RichComponent } from './rich/rich.component';
 import { InteractComponent } from './interact/interact.component';
 import { HomeComponent } from './home/home.component';
 
